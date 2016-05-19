@@ -1,0 +1,9 @@
+{
+  "runtime":{
+    "majorVersion":"0.12"
+  },
+  "command": "node c3Api.js",
+  "release": {},
+  "notes": "C3 REST API for Cloud Conference Connection - intially for ACE Cloud Hackathon - using node-oracledb, Express"
+}
+

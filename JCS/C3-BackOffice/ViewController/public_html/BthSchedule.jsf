@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+        xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+        >
+<!-- http://www.bigdev.org/2012/01/string-functions-in-jsf-inside-el-jsf-expression-language/ -->
+    <af:document title="Schedule.jsf" id="d1">
+        <af:messages id="m1"/>
+        <af:form id="f1">
+            <af:panelSplitter orientation="vertical" splitterPosition="40" id="ps1">
+                <f:facet name="first">
+                    <af:panelHeader text="Session Schedule - C3 - Back Office Application" id="ph1">
+                        <f:facet name="context"/>
+                        <f:facet name="menuBar"/>
+                        <f:facet name="toolbar"/>
+                        <f:facet name="legend"/>
+                        <f:facet name="info"/>
+                    </af:panelHeader>
+                </f:facet>
+                <f:facet name="second">
+                    <af:panelSplitter orientation="horizontal" splitterPosition="10" id="ps1a">
+                        <f:facet name="first"/>
+                        <f:facet name="second">
+                            <af:panelCollection id="pc2">
+                                <f:facet name="menus"/>
+                                <f:facet name="toolbar">
+                                </f:facet>
+                                <f:facet name="statusbar"/>
+                                <af:table value="#{bindings.PlanningScheduleView1.collectionModel}" var="row"
+                                          rows="#{bindings.PlanningScheduleView1.rangeSize}"
+                                          emptyText="#{bindings.PlanningScheduleView1.viewable ? 'No data to display.' : 'Access Denied.'}"
+                                          rowBandingInterval="0" fetchSize="#{bindings.PlanningScheduleView1.rangeSize}"
+                                          id="t2" >
+                                    <af:column headerText="#{bindings.PlanningScheduleView1.hints.Slot.label}" id="c9">
+                                        <af:outputText value="#{row.Slot}"
+                                                       shortDesc="#{bindings.PlanningScheduleView1.hints.Slot.tooltip}"
+                                                       id="ot9"/>
+                                    </af:column>
+                                    <af:column headerText="#{bindings.PlanningScheduleView1.hints.StartTime.label}"
+                                               id="c10">
+                                        <af:outputText value="#{row.StartTime}"
+                                                       shortDesc="#{bindings.PlanningScheduleView1.hints.StartTime.tooltip}"
+                                                       id="ot10">
+                                            <af:convertDateTime pattern="#{bindings.PlanningScheduleView1.hints.StartTime.format}"
+                                                                type="time"/>
+                                        </af:outputText>
+                                    </af:column>
+                                    <af:column headerText="Room 1" id="c11">
+                                        <af:outputText value="#{row.Room1Pim.bindings.Speakers.inputValue}"
+                                                       shortDesc="#{row.Room1Pim.bindings.Track.inputValue}"
+                                                       rendered="#{row.Room1Pim.bindings.SsnId.inputValue != null}"
+                                                       id="ot11"></af:outputText>
+                                        <!-- #{fn:toUpperCase(row.Room1Pim.bindings.Speakers)} -->
+                                         <af:link text="#{row.Room1Pim.bindings.SessionTitle.inputValue} " id="l14"
+                                                 shortDesc="#{row.Room1Pim.bindings.SessionTitle.inputValue} - #{row.Room1Pim.bindings.Speakers.inputValue} (duration #{row.Room1Pim.bindings.SessionDuration.inputValue})"
+                                                 rendered="#{row.Room1Pim != null}" 
+                                                 styleClass="#{fn:startsWith(row.Room1Pim.bindings.Track.inputValue, 'D')?'database':(fn:startsWith(row.Room1Pim.bindings.Track.inputValue, 'U')?'uxui':(fn:startsWith(row.Room1Pim.bindings.Track.inputValue, 'B')?'agility':(fn:startsWith(row.Room1Pim.bindings.Track.inputValue, 'S')?'integration':'none')))}Track"
+                                                 disabled="true">
+                                           
+                                        </af:link>
+                                  
+                                    </af:column>
+                                    <af:column headerText="Room 2" id="c112">
+                                        <af:outputText value="#{row.Room2Pim.bindings.Speakers.inputValue}"
+                                                       shortDesc="#{row.Room2Pim.bindings.Track.inputValue}"
+                                                       rendered="#{row.Room2Pim.bindings.SsnId.inputValue != null}"
+                                                       id="ot22"></af:outputText>
+                                         <af:link text="#{row.Room2Pim.bindings.SessionTitle.inputValue} " id="l24"
+                                                 shortDesc="#{row.Room2Pim.bindings.SessionTitle.inputValue} - #{row.Room2Pim.bindings.Speakers.inputValue}(duration #{row.Room2Pim.bindings.SessionDuration.inputValue})"
+                                                 rendered="#{row.Room2Pim != null}"  disabled="true"
+                                                 styleClass="#{fn:startsWith(row.Room2Pim.bindings.Track.inputValue, 'D')?'database':(fn:startsWith(row.Room2Pim.bindings.Track.inputValue, 'U')?'uxui':(fn:startsWith(row.Room2Pim.bindings.Track.inputValue, 'B')?'agility':(fn:startsWith(row.Room2Pim.bindings.Track.inputValue, 'S')?'integration':'none')))}Track"
+                                                 >
+                                           
+                                        </af:link>
+                            
+                                    </af:column>
+                                    <af:column headerText="Room 3" id="c113">
+                                        <af:outputText value="#{row.Room3Pim.bindings.Speakers.inputValue}"
+                                                       shortDesc="#{row.Room3Pim.bindings.Track.inputValue}"
+                                                       rendered="#{row.Room3Pim.bindings.SsnId.inputValue != null}"
+                                                       id="ot33"></af:outputText>
+                                         <af:link text="#{row.Room3Pim.bindings.SessionTitle.inputValue} " id="l34"
+                                                 shortDesc="#{row.Room3Pim.bindings.SessionTitle.inputValue} - #{row.Room3Pim.bindings.Speakers.inputValue} (duration #{row.Room3Pim.bindings.SessionDuration.inputValue})"
+                                                 rendered="#{row.Room3Pim != null}" disabled="true"
+                                                 styleClass="#{fn:startsWith(row.Room3Pim.bindings.Track.inputValue, 'D')?'database':(fn:startsWith(row.Room3Pim.bindings.Track.inputValue, 'U')?'uxui':(fn:startsWith(row.Room3Pim.bindings.Track.inputValue, 'B')?'agility':(fn:startsWith(row.Room3Pim.bindings.Track.inputValue, 'S')?'integration':'none')))}Track"
+                                                 >
+                                            
+                                        </af:link>
+                               
+                                    </af:column>
+                                    <af:column headerText="Room 4" id="c114">
+                                        <af:outputText value="#{row.Room4Pim.bindings.Speakers.inputValue}"
+                                                       shortDesc="#{row.Room4Pim.bindings.Track.inputValue}"
+                                                       rendered="#{row.Room4Pim.bindings.SsnId.inputValue != null}"
+                                                       id="ot44"></af:outputText>
+                                                                               <af:link text="#{row.Room4Pim.bindings.SessionTitle.inputValue} " id="l44"
+                                                 shortDesc="#{row.Room4Pim.bindings.SessionTitle.inputValue} - #{row.Room4Pim.bindings.Speakers.inputValue} (duration #{row.Room4Pim.bindings.SessionDuration.inputValue})"
+                                                 rendered="#{row.Room4Pim != null}" disabled="true"
+                                                 styleClass="#{fn:startsWith(row.Room4Pim.bindings.Track.inputValue, 'D')?'database':(fn:startsWith(row.Room4Pim.bindings.Track.inputValue, 'U')?'uxui':(fn:startsWith(row.Room4Pim.bindings.Track.inputValue, 'B')?'agility':(fn:startsWith(row.Room4Pim.bindings.Track.inputValue, 'S')?'integration':'none')))}Track"
+                                                 >
+                                           
+                                        </af:link>
+                                      
+
+                                    </af:column>
+                                    <af:column headerText="Room 5" id="c115">
+                                        <af:outputText value="#{row.Room5Pim.bindings.Speakers.inputValue}"
+                                                       shortDesc="#{row.Room5Pim.bindings.Track.inputValue}"
+                                                       rendered="#{row.Room5Pim.bindings.SsnId.inputValue != null}"
+                                                       id="ot55"></af:outputText>
+                                         <af:link text="#{row.Room5Pim.bindings.SessionTitle.inputValue} " id="l55"
+                                                 shortDesc="#{row.Room5Pim.bindings.SessionTitle.inputValue} - #{row.Room5Pim.bindings.Speakers.inputValue} (duration #{row.Room5Pim.bindings.SessionDuration.inputValue})"
+                                                 rendered="#{row.Room5Pim != null}" disabled="true"
+                                                 styleClass="#{fn:startsWith(row.Room5Pim.bindings.Track.inputValue, 'D')?'database':(fn:startsWith(row.Room5Pim.bindings.Track.inputValue, 'U')?'uxui':(fn:startsWith(row.Room5Pim.bindings.Track.inputValue, 'B')?'agility':(fn:startsWith(row.Room5Pim.bindings.Track.inputValue, 'S')?'integration':'none')))}Track"
+                                                 >
+                                          
+                                        </af:link>
+                                     
+                                    </af:column>
+                                    <af:column headerText="Room 6" id="c116">
+                                        <af:outputText value="#{row.Room6Pim.bindings.Speakers.inputValue}"
+                                                       shortDesc="#{row.Room6Pim.bindings.Track.inputValue}"
+                                                       rendered="#{row.Room6Pim.bindings.SsnId.inputValue != null}"
+                                                       id="ot66"></af:outputText>
+                                          <af:link text="#{row.Room6Pim.bindings.SessionTitle.inputValue} " id="l66"
+                                                 shortDesc="#{row.Room6Pim.bindings.SessionTitle.inputValue} - #{row.Room6Pim.bindings.Speakers.inputValue} (duration #{row.Room6Pim.bindings.SessionDuration.inputValue})"
+                                                 rendered="#{row.Room6Pim != null}" disabled="true"
+                                                 styleClass="#{fn:startsWith(row.Room6Pim.bindings.Track.inputValue, 'D')?'database':(fn:startsWith(row.Room6Pim.bindings.Track.inputValue, 'U')?'uxui':(fn:startsWith(row.Room6Pim.bindings.Track.inputValue, 'B')?'agility':(fn:startsWith(row.Room6Pim.bindings.Track.inputValue, 'S')?'integration':'none')))}Track"
+                                                 >
+                                          
+                                        </af:link>
+                                       
+                                   </af:column>
+                                    <af:column headerText="Room 7" id="c117">
+                                        <af:outputText value="#{row.Room7Pim.bindings.Speakers.inputValue}"
+                                                       shortDesc="#{row.Room7Pim.bindings.Track.inputValue}"
+                                                       rendered="#{row.Room7Pim.bindings.SsnId.inputValue != null}"
+                                                       id="ot77"></af:outputText>
+                                         <af:link text="#{row.Room7Pim.bindings.SessionTitle.inputValue} " id="l77"
+                                                 shortDesc="#{row.Room7Pim.bindings.SessionTitle.inputValue} - #{row.Room7Pim.bindings.Speakers.inputValue} - #{row.Room7Pim.bindings.SessionTitle.inputValue} (duration #{row.Room7Pim.bindings.SessionDuration.inputValue})"
+                                                 rendered="#{row.Room7Pim != null}" disabled="true"
+                                                 styleClass="#{fn:startsWith(row.Room7Pim.bindings.Track.inputValue, 'D')?'database':(fn:startsWith(row.Room7Pim.bindings.Track.inputValue, 'U')?'uxui':(fn:startsWith(row.Room7Pim.bindings.Track.inputValue, 'B')?'agility':(fn:startsWith(row.Room7Pim.bindings.Track.inputValue, 'S')?'integration':'none')))}Track"
+                                                 >
+                                           
+                                        </af:link>
+                       
+                                    </af:column>
+                                    <af:column headerText="Room 8" id="c118">
+                                        <af:outputText value="#{row.Room8Pim.bindings.Speakers.inputValue}"
+                                                       shortDesc="#{row.Room8Pim.bindings.Track.inputValue}"
+                                                       rendered="#{row.Room8Pim.bindings.SsnId.inputValue != null}"
+                                                       id="ot88"></af:outputText>
+                                         <af:link text="#{row.Room8Pim.bindings.SessionTitle.inputValue} " id="l88"
+                                                 shortDesc="#{row.Room8Pim.bindings.SessionTitle.inputValue} - #{row.Room8Pim.bindings.Speakers.inputValue} - #{row.Room8Pim.bindings.SessionTitle.inputValue} (duration #{row.Room8Pim.bindings.SessionDuration.inputValue})"
+                                                 rendered="#{row.Room8Pim != null}" disabled="true"
+                                                 styleClass="#{fn:startsWith(row.Room8Pim.bindings.Track.inputValue, 'D')?'database':(fn:startsWith(row.Room8Pim.bindings.Track.inputValue, 'U')?'uxui':(fn:startsWith(row.Room8Pim.bindings.Track.inputValue, 'B')?'agility':(fn:startsWith(row.Room8Pim.bindings.Track.inputValue, 'S')?'integration':'none')))}Track"
+                                                 >
+                                           
+                                        </af:link>
+                            
+                                    </af:column>
+                                </af:table>
+                            </af:panelCollection>
+                        </f:facet>
+                    </af:panelSplitter>
+                </f:facet>
+            </af:panelSplitter>
+        </af:form>
+    </af:document>
+</f:view>
