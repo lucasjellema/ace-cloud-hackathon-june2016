@@ -1,0 +1,13 @@
+<adapter-config name="C3Connection" adapter="db" wsdlLocation="../WSDLs/C3Connection.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="AMIS-DB" location="eis/DB/AMIS-DB"/>
+  <endpoint-interaction portType="C3Connection_ptt" operation="C3Connection">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="SchemaName" value="C3"/>
+      <property name="PackageName" value="BTH_SESSIONS_API"/>
+      <property name="ProcedureName" value="ADD_VOTE_REPORT"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

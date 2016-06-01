@@ -1,0 +1,12 @@
+<schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/C3Connection" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/sp/C3Connection" elementFormDefault="qualified">
+   <element name="InputParameters">
+      <complexType>
+         <sequence>
+            <element name="P_ROOM_ID" type="string" db:index="1" db:type="VARCHAR2" minOccurs="0" nillable="true"/>
+            <element name="P_TIMESTAMP" type="dateTime" db:index="2" db:type="TIMESTAMP" minOccurs="0" nillable="true"/>
+            <element name="P_VOTE_COUNT" type="decimal" db:index="3" db:type="NUMBER" minOccurs="0" nillable="true"/>
+            <element name="P_SCORE_TOTAL" type="decimal" db:index="4" db:type="NUMBER" minOccurs="0" nillable="true"/>
+         </sequence>
+      </complexType>
+   </element>
+</schema>

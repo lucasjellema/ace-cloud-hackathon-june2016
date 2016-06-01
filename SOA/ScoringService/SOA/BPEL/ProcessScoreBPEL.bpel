@@ -1,0 +1,84 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Wed Jun 01 13:32:14 BST 2016
+  Author:  oracle
+  Type: BPEL 2.0 Process
+  Purpose: One Way BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="ProcessScoreBPEL"
+               targetNamespace="http://xmlns.oracle.com/HackathonSOAapp/ScoringService/ProcessScoreBPEL"
+               xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+               xmlns:client="http://xmlns.oracle.com/HackathonSOAapp/ScoringService/ProcessScoreBPEL"
+               xmlns:ora="http://schemas.oracle.com/xpath/extension"
+               xmlns:ui="http://xmlns.oracle.com/soa/designer"
+               xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://xmlns.oracle.com/pcbpel/adapter/db/HackathonSOAapp/ScoringService/C3Connection"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ns2="http://xmlns.oracle.com/pcbpel/adapter/db/sp/C3Connection">
+
+  <import ui:processWSDL="true" namespace="http://xmlns.oracle.com/HackathonSOAapp/ScoringService/ProcessScoreBPEL" location="../WSDLs/ProcessScoreBPEL.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      PARTNERLINKS                                                      
+      List of services participating in this BPEL process               
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  --> 
+  <partnerLinks>
+    <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+    <partnerLink name="processscorebpel_client" partnerLinkType="client:ProcessScoreBPEL" myRole="ProcessScoreBPELProvider"/>
+    <partnerLink name="C3Connection" partnerLinkType="ns1:C3Connection_plt" partnerRole="C3Connection_role"/>
+  </partnerLinks>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      VARIABLES                                                        
+      List of messages and XML documents used within this BPEL process 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <variables>
+    <!-- Reference to the message passed as input during initiation -->
+    <variable name="inputVariable" messageType="client:ProcessScoreBPELRequestMessage"/>
+    <variable name="AddScore_C3Connection_InputVariable" messageType="ns1:args_in_msg"/>
+  </variables>
+
+  <!-- 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     ORCHESTRATION LOGIC                                               
+     Set of activities coordinating the flow of messages across the    
+     services integrated within this business process                  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+  <sequence name="main">
+
+    <!-- Receive input from requestor. (Note: This maps to operation defined in ProcessScoreBPEL.wsdl) -->
+    <receive name="receiveInput" partnerLink="processscorebpel_client" portType="client:ProcessScoreBPEL" operation="process" variable="inputVariable" createInstance="yes"/>
+    <assign name="AssignScoreValue">
+      <copy>
+        <from>$inputVariable.payload/ns2:P_ROOM_ID</from>
+        <to>$AddScore_C3Connection_InputVariable.InputParameters/ns2:P_ROOM_ID</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns2:P_TIMESTAMP</from>
+        <to>$AddScore_C3Connection_InputVariable.InputParameters/ns2:P_TIMESTAMP</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns2:P_VOTE_COUNT</from>
+        <to>$AddScore_C3Connection_InputVariable.InputParameters/ns2:P_VOTE_COUNT</to>
+      </copy>
+      <copy>
+        <from>$inputVariable.payload/ns2:P_SCORE_TOTAL</from>
+        <to>$AddScore_C3Connection_InputVariable.InputParameters/ns2:P_SCORE_TOTAL</to>
+      </copy>
+    </assign>
+    <invoke name="AddScore" partnerLink="C3Connection" portType="ns1:C3Connection_ptt"
+            operation="C3Connection" inputVariable="AddScore_C3Connection_InputVariable" bpelx:invokeAsDetail="no"/>
+  </sequence>
+</process>

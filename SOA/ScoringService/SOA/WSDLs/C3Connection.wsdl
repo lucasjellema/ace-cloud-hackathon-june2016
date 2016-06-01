@@ -1,0 +1,29 @@
+<wsdl:definitions
+     name="C3Connection"
+     targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/HackathonSOAapp/ScoringService/C3Connection"
+     xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/HackathonSOAapp/ScoringService/C3Connection"
+     xmlns:jca="http://xmlns.oracle.com/pcbpel/wsdl/jca/"
+     xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/sp/C3Connection"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+  <plt:partnerLinkType name="C3Connection_plt" >
+    <plt:role name="C3Connection_role" >
+      <plt:portType name="tns:C3Connection_ptt" />
+    </plt:role>
+  </plt:partnerLinkType>
+    <wsdl:types>
+     <schema xmlns="http://www.w3.org/2001/XMLSchema">
+       <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/C3Connection"
+               schemaLocation="../Schemas/C3Connection_sp.xsd" />
+     </schema>
+    </wsdl:types>
+    <wsdl:message name="args_in_msg">
+        <wsdl:part name="InputParameters" element="db:InputParameters"/>
+    </wsdl:message>
+    <wsdl:portType name="C3Connection_ptt">
+        <wsdl:operation name="C3Connection">
+            <wsdl:input message="tns:args_in_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>
